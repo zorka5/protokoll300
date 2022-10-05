@@ -85,8 +85,10 @@ class RequestFrame(Frame):
             data_length_bytes,
         ]
 
+        #TODO: fix checksum calculation
         length_byte = (len(frame_list) - 1).to_bytes(1, "little")
         frame_list.insert(1, length_byte)
+        self._frame_length = length_byte
 
         cs_byte = sum_list_bytes(frame_list)
         frame_list.append(cs_byte)
