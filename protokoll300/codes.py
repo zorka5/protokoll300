@@ -11,16 +11,9 @@ class UnitIdentifier(bytes, Enum):
 
 
 class FunctionCodes(bytes, Enum):
-    READ_COILS = b"\x01"
-    READ_DISCRETE_INPUTS = b"\x02"
-    READ_MULTIPLE_HOLDING_REGISTERS = b"\x03"
-    READ_INPUT_REGISTERS = b"\x04"
-    WRITE_SINGLE_COIL = b"\x05"
-    WRITE_SINGLE_HOLDING_REGISTER = b"\x06"
-    READ_EXCEPTION_STATUS = b"\x07"
-    DIAGNOSTIC = b"\x08"
-    WRITE_MULTIPLE_COILS = b"\xE0"
-    WRITE_MULTIPLE_HOLDING_REGISTERS = b"\xF0"
+    VIRTUAL_READ = b"\x01"
+    VIRTUAL_WRITE = b"\x02"
+    REMOTE_PROCEDURE_CALL = b"\x07"
 
 
 class ProcedureAdressesAndExpectedLength(tuple[bytes, bytes, int], Enum):
