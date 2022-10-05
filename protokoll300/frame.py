@@ -106,7 +106,6 @@ class ResponseFrame(Frame):
         function_code: bytes,
         procedure_adress_and_length: tuple[bytes, bytes, int],
         data: list[bytes],
-        checksum: bytes,
     ) -> None:
         self._data_length = procedure_adress_and_length[2]
         self._data = data
@@ -121,7 +120,7 @@ class ResponseFrame(Frame):
         frame_list += data
         frame_list.insert(1, (len(frame_list) - 1).to_bytes(1, "little"))
 
-        frame_list.append(checksum)
+        frame_list.append(int.to_bytes(self.calculate_checksum(), 1, 'little'))
 
         frame_bytes = b"".join(frame_list)
         super().__init__(frame_string=frame_bytes.hex())
