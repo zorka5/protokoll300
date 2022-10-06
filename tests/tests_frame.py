@@ -10,12 +10,18 @@ from protokoll300.codes import (
 # pylint: disable=missing-function-docstring
 
 
-def test_request_frame():
-    print("req frame test", type(RequestFrame))
-
-
 def test_frame_checksum():
     frame = Frame("41 05 00 01 08 0C 10 2A")
+    assert frame.checksum == 42
+
+
+def test_request_frame_checksum():
+    frame = RequestFrame(
+        start_byte=b"\x41",
+        unit_identifier=UnitIdentifier.REQUEST.value,
+        function_code=FunctionCodes.VIRTUAL_READ.value,
+        procedure_adress_and_length=ProcedureAdressesAndExpectedLength.CURRENT_PARAMS.value,
+    )
     assert frame.checksum == 42
 
 
@@ -27,7 +33,3 @@ def test_request_frame_current_params():
         procedure_adress_and_length=ProcedureAdressesAndExpectedLength.CURRENT_PARAMS.value,
     )
     assert frame.sequence == b"\x41\x05\x00\x01\x08\x0C\x10\x2A"
-
-
-def test_response_frame():
-    print("res frame test", type(ResponseFrame))
