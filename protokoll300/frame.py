@@ -43,15 +43,12 @@ class Frame:
         self._unit_identifier = self._frame_sequence[2].to_bytes(1, "big")
         self._function_code = self._frame_sequence[3].to_bytes(1, "big")
         self._address = bytearray([self._frame_sequence[4], self._frame_sequence[5]])
-        self._control_sum = self._frame_sequence[-1].to_bytes(1, "big")
+        self._control_sum = int.to_bytes(self.calculate_checksum(), 1, "little")
 
     def calculate_checksum(self) -> int:
         frame_length = int.from_bytes(self._frame_length, "little")
         dec = list(self._frame_sequence[1 : frame_length + 2])
         return sum(dec) % 256
-
-    def is_ok(self) -> bool:
-        return self.calculate_checksum() == int.from_bytes(self._control_sum, "little")
 
     @property
     def sequence(self) -> bytearray:
@@ -85,10 +82,8 @@ class RequestFrame(Frame):
             data_length_bytes,
         ]
 
-        #TODO: fix checksum calculation
         length_byte = (len(frame_list) - 1).to_bytes(1, "little")
         frame_list.insert(1, length_byte)
-        self._frame_length = length_byte
 
         cs_byte = sum_list_bytes(frame_list)
         frame_list.append(cs_byte)
@@ -121,8 +116,5 @@ class ResponseFrame(Frame):
         ]
         frame_list += data
         frame_list.insert(1, (len(frame_list) - 1).to_bytes(1, "little"))
-
-        frame_list.append(int.to_bytes(self.calculate_checksum(), 1, 'little'))
-
         frame_bytes = b"".join(frame_list)
         super().__init__(frame_string=frame_bytes.hex())
