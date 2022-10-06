@@ -37,14 +37,17 @@ class Frame:
 
     @property
     def sequence(self) -> bytearray:
+        "Property of frame byte sequence"
         return self._frame_sequence
 
     @property
     def checksum(self) -> int:
+        "Property of frame checksum"
         return self.calculate_checksum()
 
 
 class RequestFrame(Frame):
+    "Class representing request frame"
     _expected_data_length: int
 
     def __init__(
@@ -73,7 +76,11 @@ class RequestFrame(Frame):
         super().__init__(frame_string=frame_bytes.hex())
 
 
+# pylint: disable=pylint(too-many-arguments)
+
+
 class ResponseFrame(Frame):
+    "class representing response frame"
     _data_length: int
     _data: list[bytes]
 
