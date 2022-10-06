@@ -9,8 +9,6 @@ def isolate_frame(frame_str: str) -> Optional[list[str]]:
     except ValueError:
         print("no start byte in frame")
 
-
-
 def bytes_list_to_frame_string(bytes_list: list[bytes]) -> str:
     frame_str = ""
     for byte in bytes_list:
