@@ -11,10 +11,9 @@ def isolate_frame(frame: bytes, start_byte: bytes) -> Optional[bytes]:
     Return:
         isolated frame or None if not found
     """
-    frame_str = frame.decode("utf-8")
     try:
-        frame_str = frame_str[frame_str.index(start_byte.decode("utf-8")) :]
-        return frame_str.encode("utf-8")
+        frame = frame[frame.index(start_byte) :]
+        return frame
     except ValueError:
         print("no start byte in frame")
     return None
