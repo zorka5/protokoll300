@@ -13,10 +13,10 @@ class Frame:
 
     def __init__(self, frame_string: str) -> None:
         self._frame_sequence = bytearray.fromhex(frame_string)
-        self._start_byte = self._frame_sequence[0].to_bytes(1, "big")
-        self._frame_length = self._frame_sequence[1].to_bytes(1, "big")
-        self._unit_identifier = self._frame_sequence[2].to_bytes(1, "big")
-        self._function_code = self._frame_sequence[3].to_bytes(1, "big")
+        self._start_byte = self._frame_sequence[0].to_bytes(1, "little")
+        self._frame_length = self._frame_sequence[1].to_bytes(1, "little")
+        self._unit_identifier = self._frame_sequence[2].to_bytes(1, "little")
+        self._function_code = self._frame_sequence[3].to_bytes(1, "little")
         self._address = bytearray(
             [
                 self._frame_sequence[4],
