@@ -39,15 +39,32 @@ def parse_data(
     function_code: FunctionCodes,
     procedure_address: ProcedureAdresses,
     expected_length: ExpectedLength,
+    data: bytes,
 ) -> bytes:
-    bytes_list: list[bytes] = [
-        start_byte,
-        unit_identifier.value,
-        function_code.value,
-        procedure_address.value,
-        expected_length.value,
-    ]
-    bytes_list.insert(1, (len(bytes_list)).to_bytes(1, "little"))
-    checksum: bytes = sum_bytes_mod_256(b"".join(bytes_list[1:]))
-    bytes_list.append(checksum)
-    return b"".join(bytes_list)
+    frame_length = (
+        len(unit_identifier.value)
+        + len(function_code.value)
+        + len(procedure_address.value)
+        + len(expected_length.value)
+        + len(data)
+    ).to_bytes(1, "little")
+
+    bs = b"".join(
+        [
+            frame_length,
+            unit_identifier.value,
+            function_code.value,
+            procedure_address.value,
+            expected_length.value,
+            data,
+        ]
+    )
+
+    control_sum = sum_bytes_mod_256(bs)
+    return b"".join(
+        [
+            start_byte,
+            bs,
+            control_sum,
+        ]
+    )
