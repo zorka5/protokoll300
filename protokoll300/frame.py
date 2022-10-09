@@ -41,9 +41,9 @@ class Frame:
         return self._frame_sequence
 
     @property
-    def checksum(self) -> int:
+    def checksum(self) -> bytes:
         "Property of frame checksum"
-        return self.calculate_checksum()
+        return self._control_sum
 
 
 class RequestFrame(Frame):
