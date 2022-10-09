@@ -1,6 +1,6 @@
 from enum import Enum
 
-START_BYTE = b"\x41"
+START_BYTE: bytes = b"\x41"
 
 
 class UnitIdentifier(bytes, Enum):
@@ -16,16 +16,28 @@ class FunctionCodes(bytes, Enum):
     REMOTE_PROCEDURE_CALL = b"\x07"
 
 
-class ProcedureAdressesAndExpectedLength(tuple[bytes, bytes, int], Enum):
-    CURRENT_PARAMS = (b"\x08", b"\x0C", 16)
-    OUTDOOR_TEMP = (b"\x55", b"\x25", 4)
-    BOILER_WATER_TEMP = (b"\x29", b"\x00", 7)
-    M2_REQUIRED_ROOM_TEMP_NORMAL_OPERATION = (b"\x33", b"\x06", 1)
-    M3_REQUIRED_ROOM_TEMP_NORMAL_OPERATION = (b"\x43", b"\x06", 1)
-    M2_HEATING_CURVE_SLOPE = (b"\x37", b"\xD3", 1)
-    M3_HEATING_CURVE_SLOPE = (b"\x47", b"\xD3", 1)
-    M2_HEATING_CURVE_LEVEL = (b"\x37", b"\xD4", 1)
-    M3_HEATING_CURVE_LEVEL = (b"\x47", b"\xD4", 1)
+class ProcedureAdresses(bytes, Enum):
+    CURRENT_PARAMS = b"\x08\x0C"
+    OUTDOOR_TEMP = b"\x55\x25"
+    BOILER_WATER_TEMP = b"\x29\x00"
+    M2_REQUIRED_ROOM_TEMP_NORMAL_OPERATION = b"\x33\x06"
+    M3_REQUIRED_ROOM_TEMP_NORMAL_OPERATION = b"\x43\x06"
+    M2_HEATING_CURVE_SLOPE = b"\x37\xD3"
+    M3_HEATING_CURVE_SLOPE = b"\x47\xD3"
+    M2_HEATING_CURVE_LEVEL = b"\x37\xD4"
+    M3_HEATING_CURVE_LEVEL = b"\x47\xD4"
+
+
+class ExpectedLength(bytes, Enum):
+    CURRENT_PARAMS = b"\x10"
+    OUTDOOR_TEMP = b"\x04"
+    BOILER_WATER_TEMP = b"\x07"
+    M2_REQUIRED_ROOM_TEMP_NORMAL_OPERATION = b"\x01"
+    M3_REQUIRED_ROOM_TEMP_NORMAL_OPERATION = b"\x01"
+    M2_HEATING_CURVE_SLOPE = b"\x01"
+    M3_HEATING_CURVE_SLOPE = b"\x01"
+    M2_HEATING_CURVE_LEVEL = b"\x01"
+    M3_HEATING_CURVE_LEVEL = b"\x01"
 
 
 class ExceptionCode(bytes, Enum):
