@@ -7,10 +7,10 @@ from protokoll300.codes import (
 )
 
 
-class TestRequestFrame(unittest.TestCase):
+class TestRequestFrameSlope(unittest.TestCase):
     "Class to test Request frames"
 
-    def test_request_frame_checksum(self):
+    def test_request_frame_slope_checksum(self):
         "Method to check checksum calculation"
         frame = RequestFrame(
             start_byte=b"\x41",
@@ -20,7 +20,7 @@ class TestRequestFrame(unittest.TestCase):
         )
         self.assertEqual(frame.checksum, 42)
 
-    def test_request_frame_current_params(self):
+    def test_request_frame_slope(self):
         "Method to check frame requesting current params"
         frame = RequestFrame(
             start_byte=b"\x41",
@@ -29,7 +29,3 @@ class TestRequestFrame(unittest.TestCase):
             procedure_adress_and_length=ProcedureAdressesAndExpectedLength.CURRENT_PARAMS.value,
         )
         self.assertEqual(frame.sequence, b"\x41\x05\x00\x01\x08\x0C\x10\x2A")
-
-
-if __name__ == "__main__":
-    unittest.main()
