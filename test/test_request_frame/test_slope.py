@@ -8,37 +8,52 @@ from protokoll300.codes import (
 
 
 class TestRequestFrameCurrentParams(unittest.TestCase):
-    "Class to test Request frames"
-
-    def test_request_frame_slope_M2_checksum(self):
-        "Method to check checksum calculation"
-        frame = RequestFrame(
-            start_byte=b"\x41",
-            unit_identifier=UnitIdentifier.RESPONSE.value,
-            function_code=FunctionCodes.VIRTUAL_WRITE.value,
-            procedure_adress_and_length=ProcedureAdressesAndExpectedLength.M2_HEATING_CURVE_SLOPE.value,
-            data=[b"\x0B"],
-        )
-        self.assertEqual(frame.checksum, b"\x2A")
-
-    def test_request_frame_slope_1_1_one_byte(self):
-        "Method to check frame requesting setting slope"
+    def test_request_frame_slope_M2_1_7_checksum(self):
         frame = RequestFrame(
             start_byte=b"\x41",
             unit_identifier=UnitIdentifier.REQUEST.value,
             function_code=FunctionCodes.VIRTUAL_WRITE.value,
             procedure_adress_and_length=ProcedureAdressesAndExpectedLength.M2_HEATING_CURVE_SLOPE.value,
-            data=[b"\x0B"],
+            data=[b"\x11"],
         )
-        self.assertEqual(frame.sequence, b"\x41\x06\x00\x02\x37\xd3\x01\xB0\x2A")
+        self.assertEqual(frame.checksum, b"\x24")
 
-    def test_request_frame_slope_1_1_two_bytes(self):
-        "Method to check frame requesting setting slope"
+    def test_request_frame_slope_m2_1_7_one_byte(self):
         frame = RequestFrame(
             start_byte=b"\x41",
             unit_identifier=UnitIdentifier.REQUEST.value,
-            function_code=FunctionCodes.VIRTUAL_READ.value,
+            function_code=FunctionCodes.VIRTUAL_WRITE.value,
             procedure_adress_and_length=ProcedureAdressesAndExpectedLength.M2_HEATING_CURVE_SLOPE.value,
-            data=[b"\x0B"],
+            data=[b"\x11"],
         )
-        self.assertEqual(frame.sequence, b"\x41\x07\x00\x02\x37\xd3\x02\xB0\x00\x2A")
+        self.assertEqual(frame.sequence, b"\x41\x06\x00\x02\x37\xd3\x01\x11\x24")
+
+    def test_request_frame_slope_m2_1_1_one_byte(self):
+        frame = RequestFrame(
+            start_byte=b"\x41",
+            unit_identifier=UnitIdentifier.REQUEST.value,
+            function_code=FunctionCodes.VIRTUAL_WRITE.value,
+            procedure_adress_and_length=ProcedureAdressesAndExpectedLength.M2_HEATING_CURVE_SLOPE.value,
+            data=[b"\x0b"],
+        )
+        self.assertEqual(frame.sequence, b"\x41\x06\x00\x02\x37\xd3\x01\x0b\x1e")
+
+    def test_request_frame_slope_m3_1_7_one_byte(self):
+        frame = RequestFrame(
+            start_byte=b"\x41",
+            unit_identifier=UnitIdentifier.REQUEST.value,
+            function_code=FunctionCodes.VIRTUAL_WRITE.value,
+            procedure_adress_and_length=ProcedureAdressesAndExpectedLength.M3_HEATING_CURVE_SLOPE.value,
+            data=[b"\x11"],
+        )
+        self.assertEqual(frame.sequence, b"\x41\x06\x00\x02\x47\xd3\x01\x11\x34")
+
+    def test_request_frame_slope_m3_1_1_one_byte(self):
+        frame = RequestFrame(
+            start_byte=b"\x41",
+            unit_identifier=UnitIdentifier.REQUEST.value,
+            function_code=FunctionCodes.VIRTUAL_WRITE.value,
+            procedure_adress_and_length=ProcedureAdressesAndExpectedLength.M3_HEATING_CURVE_SLOPE.value,
+            data=[b"\x0b"],
+        )
+        self.assertEqual(frame.sequence, b"\x41\x06\x00\x02\x47\xd3\x01\x0b\x2e")
