@@ -5,7 +5,7 @@ START_BYTE = b"\x41"
 
 class UnitIdentifier(bytes, Enum):
     REQUEST = b"\x00"
-    RESPONE = b"\x01"
+    RESPONSE = b"\x01"
     UNACKD = b"\x02"
     ERROR = b"\x03"
 
