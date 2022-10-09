@@ -46,7 +46,7 @@ class Frame:
         return self._control_sum
 
 
-class ResposeFrame(Frame):
+class ResponseFrame(Frame):
     "Class representing request frame"
     _expected_data_length: int
 

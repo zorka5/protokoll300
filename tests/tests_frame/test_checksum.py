@@ -1,6 +1,6 @@
 import unittest
 
-from protokoll300.frame import Frame, ResposeFrame, RequestFrame
+from protokoll300.frame import Frame, ResponseFrame, RequestFrame
 from protokoll300.codes import (
     UnitIdentifier,
     FunctionCodes,

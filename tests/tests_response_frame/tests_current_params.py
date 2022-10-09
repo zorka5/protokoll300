@@ -1,5 +1,5 @@
 import unittest
-from protokoll300.frame import ResposeFrame
+from protokoll300.frame import ResponseFrame
 from protokoll300.codes import (
     UnitIdentifier,
     FunctionCodes,
@@ -12,7 +12,7 @@ class TestResponseFrameSlope(unittest.TestCase):
 
     def test_resp_frame_slope_checksum(self):
         "Method to check checksum calculation"
-        frame = ResposeFrame(
+        frame = ResponseFrame(
             start_byte=b"\x41",
             unit_identifier=UnitIdentifier.REQUEST.value,
             function_code=FunctionCodes.VIRTUAL_READ.value,
@@ -22,7 +22,7 @@ class TestResponseFrameSlope(unittest.TestCase):
 
     def test_resp_frame_slope(self):
         "Method to check frame resping current params"
-        frame = ResposeFrame(
+        frame = ResponseFrame(
             start_byte=b"\x41",
             unit_identifier=UnitIdentifier.REQUEST.value,
             function_code=FunctionCodes.VIRTUAL_READ.value,
