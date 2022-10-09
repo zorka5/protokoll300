@@ -46,7 +46,7 @@ class Frame:
         return self._control_sum
 
 
-class RequestFrame(Frame):
+class ResposeFrame(Frame):
     "Class representing request frame"
     _expected_data_length: int
 
@@ -79,8 +79,8 @@ class RequestFrame(Frame):
 # pylint: disable=pylint(too-many-arguments)
 
 
-class ResponseFrame(Frame):
-    "class representing response frame"
+class RequestFrame(Frame):
+    "class representing request frame"
     _data_length: int
     _data: list[bytes]
 

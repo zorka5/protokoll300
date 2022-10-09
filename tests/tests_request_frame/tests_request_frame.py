@@ -1,5 +1,5 @@
 import unittest
-from protokoll300.frame import ResponseFrame
+from protokoll300.frame import RequestFrame
 from protokoll300.codes import (
     UnitIdentifier,
     FunctionCodes,
@@ -7,12 +7,12 @@ from protokoll300.codes import (
 )
 
 
-class TestResponseFrame(unittest.TestCase):
+class TestRequestFrame(unittest.TestCase):
     "Class to test Request frames"
 
-    def test_response_frame_checksum(self):
+    def test_request_frame_checksum(self):
         "Method to check checksum calculation"
-        frame = ResponseFrame(
+        frame = RequestFrame(
             start_byte=b"\x41",
             unit_identifier=UnitIdentifier.REQUEST.value,
             function_code=FunctionCodes.VIRTUAL_WRITE.value,
@@ -21,9 +21,9 @@ class TestResponseFrame(unittest.TestCase):
         )
         self.assertEqual(frame.sequence, b"\x41\x07\x00\x02\x33\x06\x01\x0D\x00\x50")
 
-    def test_response_frame_checksum_one_byte(self):
+    def test_request_frame_checksum_one_byte(self):
         "Method to check checksum calculation"
-        frame = ResponseFrame(
+        frame = RequestFrame(
             start_byte=b"\x41",
             unit_identifier=UnitIdentifier.REQUEST.value,
             function_code=FunctionCodes.VIRTUAL_WRITE.value,
