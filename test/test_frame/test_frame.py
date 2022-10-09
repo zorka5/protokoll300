@@ -10,8 +10,4 @@ from protokoll300.frame import Frame
 class TestFrame(unittest.TestCase):
     def test_frame_checksum(self):
         frame = Frame("41 05 00 01 08 0C 10 2A")
-        self.assertEqual(frame.checksum, 42)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        self.assertEqual(frame.checksum, b"\x2A")
