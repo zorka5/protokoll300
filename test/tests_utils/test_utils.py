@@ -36,3 +36,7 @@ class TestUtils(unittest.TestCase):
             ),
             b"A\x15\x01\x01\x08\x0c\x10\xbf\x01\x97\x00X\x02\xc4\x01\xc8\x00+\x02\xc8\x00\xbf\x01.",
         )
+
+
+if __name__ == "__main__":
+    unittest.main()

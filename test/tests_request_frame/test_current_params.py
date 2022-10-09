@@ -10,7 +10,7 @@ from protokoll300.codes import (
 class TestResponseFrameSlope(unittest.TestCase):
     "Class to test Request frames"
 
-    def test_resp_frame_slope_checksum(self):
+    def test_resp_frame_current_params_checksum(self):
         "Method to check checksum calculation"
         frame = ResponseFrame(
             start_byte=b"\x41",
@@ -18,9 +18,9 @@ class TestResponseFrameSlope(unittest.TestCase):
             function_code=FunctionCodes.VIRTUAL_READ.value,
             procedure_adress_and_length=ProcedureAdressesAndExpectedLength.CURRENT_PARAMS.value,
         )
-        self.assertEqual(frame.checksum, 42)
+        self.assertEqual(frame.checksum, b"\x2A")
 
-    def test_resp_frame_slope(self):
+    def test_resp_frame_current_params(self):
         "Method to check frame resping current params"
         frame = ResponseFrame(
             start_byte=b"\x41",
