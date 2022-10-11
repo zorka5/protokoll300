@@ -1,6 +1,4 @@
-from typing import Optional
-
-def isolate_frame(frame: bytes, start_byte: bytes) -> Optional[bytes]:
+def isolate_frame(frame: bytes, start_byte: bytes) -> bytes:
     """
     Function isolating frame from given bytes.
     Function searches for starting byte and returns frame starting with it.
@@ -15,7 +13,7 @@ def isolate_frame(frame: bytes, start_byte: bytes) -> Optional[bytes]:
         return frame
     except ValueError:
         print("no start byte in frame")
-    return None
+        raise
 
 
 def sum_bytes_mod_256(bytes_list: bytes) -> bytes:
