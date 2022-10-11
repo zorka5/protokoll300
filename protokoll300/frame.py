@@ -1,6 +1,7 @@
+from typing import Optional
 from dataclasses import dataclass
 from .utils import sum_bytes_mod_256
-from .codes import START_BYTE, UnitIdentifier, FunctionCodes, ProcedureAdresses, ExpectedLength
+from .codes import UnitIdentifier, FunctionCodes, ProcedureAdresses, ExpectedLength
 
 
 @dataclass
@@ -47,8 +48,9 @@ def parse_data(
     function_code: FunctionCodes,
     procedure_address: ProcedureAdresses,
     expected_length: ExpectedLength,
-    data: bytes,
+    data: Optional[bytes] = b"",
 ) -> Frame:
+
     frame_length = (
         len(unit_identifier.value)
         + len(function_code.value)
@@ -57,7 +59,7 @@ def parse_data(
         + len(data)
     ).to_bytes(1, "little")
 
-    bs = b"".join(
+    joined_bytes = b"".join(
         [
             frame_length,
             unit_identifier.value,
@@ -68,11 +70,11 @@ def parse_data(
         ]
     )
 
-    control_sum = sum_bytes_mod_256(bs)
+    control_sum = sum_bytes_mod_256(joined_bytes)
     return Frame(b"".join(
         [
             start_byte,
-            bs,
+            joined_bytes,
             control_sum,
         ]
     ))
