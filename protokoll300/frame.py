@@ -50,6 +50,18 @@ def parse_data(
     expected_length: ExpectedLength,
     data: Optional[bytes] = b"",
 ) -> Frame:
+    '''
+    Function that takes frame params and parses them to Frame obejct.
+    Params:
+        - start_byte: starting byte of the frame
+        - unit_identifier: determines type of frame eg request, response
+        - function_code: determines action to be done eg read, write
+        - procedure_address: adrress of procedure to be done eg current params
+        - expected_length: expected len of data to be sent/received
+        - data: data to be sent/received
+    Return:
+        new Frame object
+    '''
 
     frame_length = (
         len(unit_identifier.value)
