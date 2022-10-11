@@ -21,6 +21,7 @@ class Frame:
     control_sum: bytes
 
     def __init__(self, frame_bytes: bytes) -> None:
+        assert len(frame_bytes) >= 8
         self.frame_sequence = frame_bytes
         self.start_byte = frame_bytes[0].to_bytes(1, "little")
         self.frame_length = frame_bytes[1].to_bytes(1, "little")

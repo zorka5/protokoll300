@@ -45,3 +45,6 @@ class TestFrame(unittest.TestCase):
             b"",
         )
         self.assertTrue(frame.is_ok())
+
+    def test_frame_too_short(self):
+        self.assertRaises(AssertionError, Frame, b"\x41\x05\x00\x01\x55\x25\x84")
